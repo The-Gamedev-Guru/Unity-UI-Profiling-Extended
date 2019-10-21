@@ -1,0 +1,29 @@
+diff --git a/Graphic.cs b/Graphic.cs
+index d387048..d12a153 100644
+--- a/Graphic.cs
++++ b/Graphic.cs
+@@ -232,6 +232,7 @@ namespace UnityEngine.UI
+             if (!IsActive())
+                 return;
+ 
++            if (Application.isPlaying) UnityEngine.Debug.Log("SetLayoutDirty: " + rectTransform.name);
+             LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
+ 
+             if (m_OnDirtyLayoutCallback != null)
+@@ -249,6 +250,7 @@ namespace UnityEngine.UI
+             if (!IsActive())
+                 return;
+ 
++            if (Application.isPlaying) UnityEngine.Debug.Log("SetVerticesDirty: " + rectTransform.name);
+             m_VertsDirty = true;
+             CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
+ 
+@@ -267,6 +269,8 @@ namespace UnityEngine.UI
+             if (!IsActive())
+                 return;
+ 
++            if (Application.isPlaying) UnityEngine.Debug.Log("SetMaterialDirty: " + rectTransform.name);
++
+             m_MaterialDirty = true;
+             CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
+ 

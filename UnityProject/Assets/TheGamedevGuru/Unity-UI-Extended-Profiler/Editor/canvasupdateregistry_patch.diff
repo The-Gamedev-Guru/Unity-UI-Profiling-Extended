@@ -1,0 +1,29 @@
+diff --git a/CanvasUpdateRegistry.cs b/CanvasUpdateRegistry.cs
+index 233cb93..49b5f0a 100644
+--- a/CanvasUpdateRegistry.cs
++++ b/CanvasUpdateRegistry.cs
+@@ -174,7 +174,11 @@ namespace UnityEngine.UI
+                     try
+                     {
+                         if (ObjectValidForUpdate(rebuild))
+-                            rebuild.Rebuild((CanvasUpdate)i);
++                        {
++                            UnityEngine.Profiling.Profiler.BeginSample("PostLayout:" + rebuild.transform.name, rebuild.transform.gameObject);
++                            rebuild.Rebuild((CanvasUpdate) i);
++                            UnityEngine.Profiling.Profiler.EndSample();
++                        }
+                     }
+                     catch (Exception e)
+                     {
+@@ -207,7 +211,11 @@ namespace UnityEngine.UI
+                     {
+                         var element = instance.m_GraphicRebuildQueue[k];
+                         if (ObjectValidForUpdate(element))
++                        {
++                            Profiling.Profiler.BeginSample("PreRender:" + element.transform.gameObject.name, element.transform.gameObject);
+                             element.Rebuild((CanvasUpdate)i);
++                            UnityEngine.Profiling.Profiler.EndSample();
++                        }
+                     }
+                     catch (Exception e)
+                     {
